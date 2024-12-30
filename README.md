@@ -224,7 +224,7 @@ The `.vocab` file shows:
 - Add special tokens capability
 - 
 ## Bugs
-- Duplicate tokens
+- <del>Duplicate tokens</del>
 
 ## License
 
