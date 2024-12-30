@@ -1,6 +1,6 @@
 # Entropy-Based Tokenizer
 
-"Hey, look! A regex free tokenizer!"<br>
+"Hey, look! A regex free tokenizer!"  
 A memory-efficient tokenizer that uses entropy calculations to identify natural boundaries in text and create tokens. This tokenizer is particularly effective for processing large text files as it uses memory mapping (mmap) and chunked processing.
 
 ## Features
@@ -32,48 +32,120 @@ git clone https://github.com/exploringweirdmachines/Entropy-based-Tokenizer.git
 
 ## Usage
 
-### Threshold Configuration
+### Training and Inference
 
-The tokenizer supports two types of thresholds that can be used independently or together:
+The tokenizer can be used in two modes: training and inference. Both modes are accessible through the command line interface.
 
-1. **Global Threshold**: Sets an absolute entropy value above which token boundaries are identified. Useful for finding positions of high uncertainty in the text.
-   ```python
-   # Using only global threshold
-   tokenizer = EntropyTokenizer(global_threshold=0.5)
-   ```
+#### Training Mode
+```bash
+usage: train_entropy_tokenizer.py train [-h] [--global_threshold GLOBAL_THRESHOLD] [--relative_threshold RELATIVE_THRESHOLD] [--window_size WINDOW_SIZE] [--chunk_size CHUNK_SIZE] [train_file] model_name
 
-2. **Relative Threshold**: Identifies boundaries at positions where there's a significant jump in entropy compared to the previous position. This helps catch sudden changes in predictability.
-   ```python
-   # Using only relative threshold
-   tokenizer = EntropyTokenizer(relative_threshold=0.03)
-   ```
+positional arguments:
+  train_file            Path to the text file to train on (default: shakespeare.txt).
+  model_name            Name of the model to save.
 
-3. **Combined Usage**: When both thresholds are used, a position will be marked as a boundary if it satisfies either condition (high absolute entropy OR significant entropy jump).
-   ```python
-   # Using both thresholds
-   tokenizer = EntropyTokenizer(global_threshold=0.5, relative_threshold=0.03)
-   ```
+options:
+  -h, --help            show this help message and exit
+  --global_threshold GLOBAL_THRESHOLD
+                        Global threshold for the tokenizer.
+  --relative_threshold RELATIVE_THRESHOLD
+                        Relative threshold for the tokenizer.
+  --window_size WINDOW_SIZE
+                        Window size for the tokenizer.
+  --chunk_size CHUNK_SIZE
+                        Chunk size for the tokenizer (default: 1MB).
+```
 
-### Basic Usage
+```bash
+python train_entropy_tokenizer.py train shakespeare.txt
+
+Building transition matrix...
+Processed 1115394/1115394 bytes for transition matrix
+Calculating entropies...
+Finding boundaries...
+Identified 656231 text chunks
+Added token 256: Fir
+Processed chunks: 1, Unique tokens: 1
+Added token 257: s
+Processed chunks: 2, Unique tokens: 2
+Added token 258: t 
+Processed chunks: 3, Unique tokens: 3
+Added token 259: C
+Processed chunks: 4, Unique tokens: 4
+Added token 260: iti
+Processed chunks: 5, Unique tokens: 5
+Added token 261: z
+Processed chunks: 6, Unique tokens: 6
+...
+Processed chunks: 656060, Unique tokens: 7619
+Added token 7875: surel
+Processed chunks: 656152, Unique tokens: 7620
+Added token 7876: din
+Processed chunks: 656171, Unique tokens: 7621
+Added token 7877: st a
+Processed chunks: 656206, Unique tokens: 7622
+Added token 7878: p--di
+Processed chunks: 656230, Unique tokens: 7623
+Added token 7879: king.
+
+Processed chunks: 656231, Unique tokens: 7624
+Training took 32.69 seconds
+```
+
+#### Inference Mode
+
+```bash
+usage: train_entropy_tokenizer.py inference [-h] [--input_text INPUT_TEXT] [--input_file INPUT_FILE] [model_name]
+
+positional arguments:
+  model_name            Path to the tokenizer model to load (default: shakespear.model).
+
+options:
+  -h, --help            show this help message and exit
+  --input_text INPUT_TEXT
+                        Text to encode and decode (default: "Three Laws of Robotics").
+  --input_file INPUT_FILE
+                        Path to file that has the input text to encode and decode.
+```
+
+```bash
+python train_entropy_tokenizer.py inference
+Loaded text: "Isaac Asimov's "Three Laws of Robotics"
+1.A robot may not injure a human being or, through inaction, allow a human being to come to harm.
+2.A robot must obey orders given it by human beings except where such orders would conflict with the First Law.
+3.A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.
+"
+Encoded text to tokens: [73, 2896, 97, 99, 32, 65, 115, 105, 492, 118, 39, 115, 32, 34, 84, 6449, 101, 6717, 6322, 115, 526, 102, 3367, 111, 98, 1062, 105, 99, 115, 34, 10, 49, 46, 65, 32, 114, 111, 98, 6316, 109, 786, 32, 110, 6316, 105, 110, 106, 117, 114, 101, 32, 1133, 104, 117, 109, 97, 110, 32, 98, 101, 105, 110, 103, 32, 111, 114, 44, 32, 6114, 114, 111, 117, 103, 104, 32, 105, 110, 97, 99, 901, 2736, 295, 108, 108, 111, 313, 1133, 104, 117, 109, 97, 110, 32, 98, 101, 105, 110, 103, 32, 116, 111, 32, 99, 111, 109, 101, 32, 116, 111, 32, 104, 97, 114, 109, 822, 50, 46, 65, 32, 114, 111, 98, 6316, 2878, 115, 258, 111, 98, 747, 32, 111, 114, 100, 101, 6151, 32, 465, 298, 110, 32, 6136, 1008, 32, 104, 117, 109, 97, 110, 32, 98, 101, 105, 715, 115, 32, 101, 120, 99, 101, 112, 258, 119, 6105, 114, 101, 32, 115, 996, 104, 32, 111, 114, 100, 101, 6151, 32, 659, 117, 108, 100, 32, 99, 353, 102, 108, 105, 99, 258, 1907, 104, 32, 116, 104, 101, 32, 70, 105, 6151, 116, 32, 76, 97, 119, 46, 10, 51, 46, 65, 32, 114, 111, 98, 6316, 2878, 115, 258, 112, 114, 2202, 99, 258, 381, 115, 526, 119, 110, 32, 101, 1758, 115, 6561, 99, 101, 32, 97, 115, 32, 108, 111, 110, 103, 32, 97, 115, 32, 115, 996, 104, 32, 112, 114, 2202, 99, 901, 111, 110, 32, 453, 101, 115, 32, 110, 6316, 99, 353, 102, 108, 105, 99, 258, 1907, 104, 32, 116, 104, 101, 32, 70, 105, 6151, 116, 32, 111, 114, 32, 83, 101, 99, 353, 100, 6717, 97, 119, 46, 10]
+
+Decoded tokens back to text: "Isaac Asimov's "Three Laws of Robotics"
+1.A robot may not injure a human being or, through inaction, allow a human being to come to harm.
+2.A robot must obey orders given it by human beings except where such orders would conflict with the First Law.
+3.A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.
+"
+"""
+
+### Programmatic Usage
 
 ```python
 from entropy_tokenizer import EntropyTokenizer
 
-# Initialize the tokenizer
+# Initialize the tokenizer with default settings
 tokenizer = EntropyTokenizer(
-    global_threshold=0.5,    # Threshold for absolute entropy values
-    relative_threshold=0.03  # Threshold for entropy changes
+    global_threshold=0.5,    # Default threshold for absolute entropy values
+    relative_threshold=0.03, # Default threshold for entropy changes
+    window_size=1000,       # Default window size
+    chunk_size=1024*1024    # Default chunk size (1MB)
 )
 
-# Train on a text file
-tokenizer.train("path/to/your/text.txt", verbose=True)
+# Train on text file (defaults to shakespeare.txt)
+tokenizer.train("input.txt", verbose=True)
 
-# Save the trained model
-tokenizer.save("my_tokenizer")
+# Save the trained model (will create .model and .vocab files)
+tokenizer.save("my_model")
 
-# Load a saved model
+# Load a model
 loaded_tokenizer = EntropyTokenizer()
-loaded_tokenizer.load("my_tokenizer.model")
+loaded_tokenizer.load("my_model.model")  # Defaults to shakespeare.model
 
 # Encode text
 text = "Example text to encode"
@@ -85,14 +157,21 @@ decoded_text = loaded_tokenizer.decode(tokens)
 
 ### Advanced Configuration
 
+The tokenizer supports several configuration parameters that can be adjusted based on your needs:
+
 ```python
 tokenizer = EntropyTokenizer(
-    global_threshold=0.5,       # Threshold for absolute entropy values
-    relative_threshold=0.03,    # Threshold for entropy changes
-    window_size=1000,          # Size of sliding window for entropy calculation
-    chunk_size=1024*1024       # Size of chunks for processing mmap (1MB default)
+    global_threshold=0.5,    # Controls absolute entropy threshold for token boundaries
+    relative_threshold=0.03, # Controls relative entropy change threshold
+    window_size=1000,       # Size of sliding window for entropy calculation
+    chunk_size=1024*1024    # Size of chunks for memory-mapped processing (1MB)
 )
 ```
+
+- `global_threshold`: Higher values create fewer tokens (default: 0.5)
+- `relative_threshold`: Higher values make the tokenizer less sensitive to entropy changes (default: 0.03)
+- `window_size`: Controls the context window for entropy calculations (default: 1000)
+- `chunk_size`: Controls memory usage during processing (default: 1MB)
 
 ## How It Works
 
@@ -143,7 +222,6 @@ The `.vocab` file shows:
 - Requires UTF-8 encoded input files
 - Token boundaries are determined solely by entropy calculations
 
-
 ## License
 
 Apache License 2.0
@@ -154,7 +232,7 @@ If you use this tokenizer in your research, please cite:
 
 ```bibtex
 @software{entropy_tokenizer,
-  author = exploringweirdmachines,
+  author = {exploringweirdmachines},
   title = {Entropy-based-Tokenizer},
   year = {2024},
   url = {https://github.com/exploringweirdmachines/Entropy-based-Tokenizer}
