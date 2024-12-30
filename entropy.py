@@ -242,7 +242,36 @@ class EntropyTokenizer:
             for idx, token in filtered_vocab.items():
                 s = render_token(token)
                 f.write(f"[{s}] {idx}\n")
-
+    def load(self, model_file):
+        assert model_file.endswith(".model")
+        
+        self.vocab = {idx: bytes([idx]) for idx in range(256)}
+        with open(model_file, 'r', encoding='utf-8') as f:
+            # Read version
+            version = f.readline().strip()
+            assert version == "entropy_tokenizer v1"
+            
+            # Read thresholds
+            global_thresh = f.readline().strip()
+            self.global_threshold = float(global_thresh) if global_thresh != 'None' else None
+            
+            relative_thresh = f.readline().strip()
+            self.relative_threshold = float(relative_thresh) if relative_thresh != 'None' else None
+            
+            # Read special tokens
+            num_special = int(f.readline().strip())
+            self.special_tokens = {}
+            for _ in range(num_special):
+                special, special_idx = f.readline().strip().split()
+                self.special_tokens[special] = int(special_idx)
+            
+            # Read vocabulary entries
+            for line in f:
+                parts = line.strip().split()
+                idx = int(parts[0])
+                token_bytes = bytes.fromhex(''.join(parts[1:]))
+                self.vocab[idx] = token_bytes
+            
     def encode(self, text):
         """Encodes text into token IDs"""
         if not text:
