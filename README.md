@@ -220,8 +220,11 @@ The `.vocab` file shows:
 
 ## Todo
 
-- Limit for the number of tokens to be generated
+- Add limit for the number of tokens to be generated
 - Add special tokens capability
+- 
+## Bugs
+- Duplicate tokens
 
 ## License
 
