@@ -48,7 +48,7 @@ def main():
 
     # Training mode parser
     train_parser = subparsers.add_parser("train", help="Train a new tokenizer model.")
-    train_parser.add_argument("train_file", type=str, nargs='?', default="shakespear.txt", help="Path to the text file to train on (default: shakespear.txt).")
+    train_parser.add_argument("train_file", type=str, nargs='?', default="shakespeare.txt", help="Path to the text file to train on (default: shakespeare.txt).")
     train_parser.add_argument("model_name", type=str, help="Name of the model to save.")
     train_parser.add_argument(
         "--global_threshold", type=float, default=0.5, help="Global threshold for the tokenizer."
@@ -65,7 +65,7 @@ def main():
 
     # Inference mode parser
     inference_parser = subparsers.add_parser("inference", help="Load and use a trained tokenizer model.")
-    inference_parser.add_argument("model_name", type=str, nargs='?', default="shakespear.model", help="Path to the tokenizer model to load (default: shakespear.model).")
+    inference_parser.add_argument("model_name", type=str, nargs='?', default="shakespeare.model", help="Path to the tokenizer model to load (default: shakespeare.model).")
     inference_parser.add_argument(
         "--input_text", type=str, default="""Isaac Asimov's "Three Laws of Robotics"
 1.A robot may not injure a human being or, through inaction, allow a human being to come to harm.
