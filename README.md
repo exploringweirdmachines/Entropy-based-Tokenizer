@@ -126,7 +126,7 @@ Decoded tokens back to text: "Isaac Asimov's "Three Laws of Robotics"
 ### Programmatic Usage
 
 ```python
-from entropy_tokenizer import EntropyTokenizer
+from entropy import EntropyTokenizer
 
 # Initialize the tokenizer with default settings
 tokenizer = EntropyTokenizer(
