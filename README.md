@@ -41,7 +41,7 @@ The tokenizer can be used in two modes: training and inference. Both modes are a
 
 #### Training Mode
 ```bash
-usage: train_entropy_tokenizer.py train [-h] [--global_threshold GLOBAL_THRESHOLD] [--relative_threshold RELATIVE_THRESHOLD] [--window_size WINDOW_SIZE] [--chunk_size CHUNK_SIZE] [train_file] model_name
+usage: main.py train [-h] [--global_threshold GLOBAL_THRESHOLD] [--relative_threshold RELATIVE_THRESHOLD] [--window_size WINDOW_SIZE] [--chunk_size CHUNK_SIZE] [train_file] model_name
 
 positional arguments:
   train_file            Path to the text file to train on (default: shakespeare.txt).
@@ -60,7 +60,7 @@ options:
 ```
 
 ```bash
-python train_entropy_tokenizer.py train shakespeare.txt
+python main.py train shakespeare.txt
 
 Building transition matrix...
 Processed 1115394/1115394 bytes for transition matrix
@@ -98,7 +98,7 @@ Training took 32.69 seconds
 #### Inference Mode
 
 ```bash
-usage: train_entropy_tokenizer.py inference [-h] [--input_text INPUT_TEXT] [--input_file INPUT_FILE] [model_name]
+usage: main.py inference [-h] [--input_text INPUT_TEXT] [--input_file INPUT_FILE] [model_name]
 
 positional arguments:
   model_name            Path to the tokenizer model to load (default: shakespear.model).
@@ -112,7 +112,7 @@ options:
 ```
 
 ```bash
-python train_entropy_tokenizer.py inference
+python main.py inference
 Loaded text: "Isaac Asimov's "Three Laws of Robotics"
 1.A robot may not injure a human being or, through inaction, allow a human being to come to harm.
 2.A robot must obey orders given it by human beings except where such orders would conflict with the First Law.
