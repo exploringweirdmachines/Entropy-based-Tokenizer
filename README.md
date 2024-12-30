@@ -1,7 +1,8 @@
 # Entropy-Based Tokenizer
 
 "Hey, look! A regex free tokenizer!"  
-A memory-efficient tokenizer that uses entropy calculations to identify natural boundaries in text and create tokens. This tokenizer is particularly effective for processing large text files as it uses memory mapping (mmap) and chunked processing.
+A tokenizer that uses entropy calculations to identify natural boundaries in text and create tokens. This tokenizer is particularly effective for processing large text files as it uses memory mapping (mmap) and chunked processing.<br>
+Based on Andrej Karpathy's minBPE tokenizer and META's 'Byte Latent Transformer: Patches Scale Better Than Tokens' paper.
 
 ## Features
 
