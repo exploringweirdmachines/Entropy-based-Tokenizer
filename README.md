@@ -218,11 +218,10 @@ The `.vocab` file shows:
 - Optimal chunk_size depends on available system memory
 - Adjust window_size to balance between precision and processing speed
 
-## Limitations
+## Todo
 
-- Currently processes single files (no directory traversal)
-- Requires UTF-8 encoded input files
-- Token boundaries are determined solely by entropy calculations
+- Limit for the number of tokens to be generated
+- 
 
 ## License
 
