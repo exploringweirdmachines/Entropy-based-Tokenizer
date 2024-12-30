@@ -1,5 +1,6 @@
 # Entropy-Based Tokenizer
 
+"Hey, look! A regex free tokenizer!"<br>
 A memory-efficient tokenizer that uses entropy calculations to identify natural boundaries in text and create tokens. This tokenizer is particularly effective for processing large text files as it uses memory mapping (mmap) and chunked processing.
 
 ## Features
