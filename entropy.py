@@ -190,7 +190,7 @@ class EntropyTokenizer:
             token_to_id[chunk_bytes] = next_id
             
             if verbose:
-                print(f"Added token {next_id}: \"{repr(chunk)[1:-1]}\"")
+                print(f"\nAdded token {next_id}: \"{repr(chunk)[1:-1]}\"")
             next_id += 1
             sys.stdout.write(f"\rProcessed chunks: {total_chunks_processed}, Unique tokens: {len(token_to_id) - 256}")
             sys.stdout.flush()
@@ -240,8 +240,16 @@ class EntropyTokenizer:
         vocab_file = Path(file_prefix).stem + ".vocab"
         with open(vocab_file, 'w', encoding='utf-8') as f:
             for idx, token in filtered_vocab.items():
-                s = render_token(token)
-                f.write(f"[{s}] {idx}\n")
+                try:
+                    # Decode the token bytes to string and use repr() to properly escape special characters
+                    token_str = token.decode('utf-8', errors='replace')
+                    # Use repr() to get escaped string and remove the outer quotes
+                    escaped_str = repr(token_str)[1:-1]
+                    f.write(f"[{escaped_str}] {idx}\n")
+                except UnicodeDecodeError:
+                    # Fallback for any bytes that can't be decoded
+                    hex_repr = ' '.join(f"\\x{b:02x}" for b in token)
+                    f.write(f"[{hex_repr}] {idx}\n")
 
     def load(self, model_file):
         assert model_file.endswith(".model")
