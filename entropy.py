@@ -190,7 +190,7 @@ class EntropyTokenizer:
             token_to_id[chunk_bytes] = next_id
             
             if verbose:
-                print(f"\nAdded token {next_id}: {chunk}")
+                print(f"Added token {next_id}: \"{repr(chunk)[1:-1]}\"")
             next_id += 1
             sys.stdout.write(f"\rProcessed chunks: {total_chunks_processed}, Unique tokens: {len(token_to_id) - 256}")
             sys.stdout.flush()
