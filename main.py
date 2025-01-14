@@ -2,7 +2,7 @@ import time
 
 import argparse
 
-from tokenizer import EntropyTokenizer
+from .entropy import EntropyTokenizer
 
 def train_mode(args):
     """Trains the tokenizer and saves the model."""
