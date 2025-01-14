@@ -87,10 +87,9 @@ Added token 7814: "st a"
 Processed chunks: 656206, Unique tokens: 7559
 Added token 7815: "p--di"
 Processed chunks: 656230, Unique tokens: 7560
-Added token 7816: "king.
-"
+Added token 7816: "king.\n"
 Processed chunks: 656231, Unique tokens: 7561
-Training took 33.84 seconds
+Training took 34.81 seconds
 ```
 
 #### Inference Mode
