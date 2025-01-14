@@ -67,32 +67,30 @@ Processed 1115394/1115394 bytes for transition matrix
 Calculating entropies...
 Finding boundaries...
 Identified 656231 text chunks
-Added token 256: Fir
-Processed chunks: 1, Unique tokens: 1
-Added token 257: s
-Processed chunks: 2, Unique tokens: 2
-Added token 258: t 
-Processed chunks: 3, Unique tokens: 3
-Added token 259: C
-Processed chunks: 4, Unique tokens: 4
-Added token 260: iti
-Processed chunks: 5, Unique tokens: 5
-Added token 261: z
-Processed chunks: 6, Unique tokens: 6
+Added token 256: "Fir"
+Processed chunks: 2, Unique tokens: 1
+Added token 257: "t "
+Processed chunks: 4, Unique tokens: 2
+Added token 258: "iti"
+Processed chunks: 6, Unique tokens: 3
+Added token 259: "en"
 ...
-Processed chunks: 656060, Unique tokens: 7619
-Added token 7875: surel
-Processed chunks: 656152, Unique tokens: 7620
-Added token 7876: din
-Processed chunks: 656171, Unique tokens: 7621
-Added token 7877: st a
-Processed chunks: 656206, Unique tokens: 7622
-Added token 7878: p--di
-Processed chunks: 656230, Unique tokens: 7623
-Added token 7879: king.
-
-Processed chunks: 656231, Unique tokens: 7624
-Training took 32.69 seconds
+Added token 7810: "nat"
+Processed chunks: 655993, Unique tokens: 7555
+Added token 7811: "s a "
+Processed chunks: 656060, Unique tokens: 7556
+Added token 7812: "surel"
+Processed chunks: 656152, Unique tokens: 7557
+Added token 7813: "din"
+Processed chunks: 656171, Unique tokens: 7558
+Added token 7814: "st a"
+Processed chunks: 656206, Unique tokens: 7559
+Added token 7815: "p--di"
+Processed chunks: 656230, Unique tokens: 7560
+Added token 7816: "king.
+"
+Processed chunks: 656231, Unique tokens: 7561
+Training took 33.84 seconds
 ```
 
 #### Inference Mode
