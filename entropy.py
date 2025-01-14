@@ -6,20 +6,6 @@ import os
 import sys
 from pathlib import Path
 
-def replace_control_characters(s: str) -> str:
-    chars = []
-    for ch in s:
-        if unicodedata.category(ch)[0] != "C":
-            chars.append(ch)
-        else:
-            chars.append(f"\\u{ord(ch):04x}")
-    return "".join(chars)
-
-def render_token(t: bytes) -> str:
-    s = t.decode('utf-8', errors='replace')
-    s = replace_control_characters(s)
-    return s
-
 class EntropyTokenizer:
     def __init__(self, global_threshold=None, relative_threshold=None, window_size=1000, chunk_size=1024*1024):
         self.global_threshold = global_threshold
