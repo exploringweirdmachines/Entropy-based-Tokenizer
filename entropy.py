@@ -242,6 +242,7 @@ class EntropyTokenizer:
             for idx, token in filtered_vocab.items():
                 s = render_token(token)
                 f.write(f"[{s}] {idx}\n")
+
     def load(self, model_file):
         assert model_file.endswith(".model")
         
@@ -271,7 +272,7 @@ class EntropyTokenizer:
                 idx = int(parts[0])
                 token_bytes = bytes.fromhex(''.join(parts[1:]))
                 self.vocab[idx] = token_bytes
-            
+
     def encode(self, text):
         """Encodes text into token IDs"""
         if not text:
